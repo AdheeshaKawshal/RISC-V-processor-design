@@ -1,5 +1,5 @@
 module core(
-	input clk,	// clock input
+	input clk,	// clock input first comment
 	input rst,	// reset (active high)
     input  [31:0] instruction, // you need to execute this instruction========
 	input  [31:0] pc, // the pc of the instruction that needs to execute==========
