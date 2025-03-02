@@ -1,3 +1,4 @@
+//32032f
 module core(
 	input clk,	// clock input first comment
 	input rst,	// reset (active high)
