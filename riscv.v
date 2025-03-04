@@ -17,7 +17,8 @@ module core(
     wire  [31:0] inA,inB,Aout,pcreg,RD,mout;
     wire [31:0] instr;
     wire  [31:0] WD3,muxB,ext,WD,pcplus,pctar,pcnex;
-	wire Dwe,Rwe,aluSrc,zero,resultsrc,pcSrc;
+	wire Dwe,Rwe,aluSrc,zero,resultsrc;
+    wire [1:0] pcSrc;
 	wire  [5:0]  pcaddr;
     wire  [31:0] pcsh,SrcB;
     assign A=Aout;
@@ -51,9 +52,10 @@ module core(
         .pcreg(pcsh),
         .out(pcnex)
     );
-    mux32bit2_1 PCnext(
+    mux32bit4_1 PCnext(
     .in1(pcplus),
     .in2(pctar),
+    .in3(Aout),
     .select(pcSrc),
     .out(pcsh)
 );
@@ -296,8 +298,9 @@ module rv32i_controller (
     output reg memWrite,             
     output reg [3:0] aluOp, 
     output reg [2:0] extO,   
-    output reg aluSrc,          
-    output reg pcsrc,resultsrc,
+    output reg aluSrc, 
+    output reg [1:0] pcsrc,         
+    output reg resultsrc,
     output reg zer
 );
     reg [9:0] func;
@@ -308,7 +311,7 @@ module rv32i_controller (
                 regWrite = 1;
                 memWrite = 0;
                 aluSrc = 0;
-                pcsrc=1'b0;
+                pcsrc=2'b00;
                 resultsrc=1'b0;
                 case (func)
                     10'b0000000000:begin
@@ -328,6 +331,13 @@ module rv32i_controller (
                     end
                 endcase  
             end
+            7'b0010011: begin  // ADDI/SLTI/SLTIU/XORI/ORI/ANDI
+                regWrite = 1;
+                memWrite = 0;
+                aluOp = 2'b00;
+                aluSrc = 1;
+                extO=3'b010;
+            end
             7'b0000011: begin  // Load (LW)
                 regWrite = 1;
                 memWrite = 0;
@@ -343,7 +353,7 @@ module rv32i_controller (
                 extO=3'b010;
                 aluOp = 4'b0010;
                 aluSrc = 1'b1;
-                pcsrc=1'b0;
+                pcsrc=2'b00;
             end
             7'b1100011: begin  // Branch (BEQ)
                 regWrite = 0;
@@ -358,7 +368,21 @@ module rv32i_controller (
                 aluOp = 2'b00;
                 aluSrc = 0;
             end
-            7'b0110111: begin  // U type
+            7'b1100111: begin  // JALR
+                regWrite = 1;  // Write PC+4 to rd
+                memWrite = 0;
+               
+                aluOp = 2'b00;
+                aluSrc = 0;
+            end
+            7'b0110111: begin  // LUI
+                regWrite = 1;  // Write PC+4 to rd
+                memWrite = 0;
+                extO=3'b001;
+                aluOp = 2'b00;
+                aluSrc = 1;
+            end
+            7'b0010111: begin  // AUPIC
                 regWrite = 1;  // Write PC+4 to rd
                 memWrite = 0;
                 extO=3'b001;
@@ -368,7 +392,7 @@ module rv32i_controller (
             default: begin  // Default case (NOP)
                 regWrite = 0;
                 memWrite = 0;
-                pcsrc=1'b0;
+                pcsrc=2'b00;
                 aluOp = 2'b00;
                 aluSrc = 0;
             end
@@ -387,7 +411,33 @@ module mux32bit2_1(
         out = (select) ? in2 : in1;
     end
 endmodule
+module mux32bit4_1(
+    input wire [31:0] in1,
+    input wire [31:0] in2,
+    input wire [31:0] in3,
+    input wire [31:0] in4,
+    input wire [1:0] select,
+    output reg [31:0] out
+);
+    always @(*) begin
+        case(select)
+        2'b00: begin
+            out =in1;
+        end
+        2'b01: begin
+            out =in2;
+        end
+        2'b10: begin
+            out =in3;
+        end
+        2'b11: begin
+            out =in4;
+        end
 
+        endcase
+
+    end
+endmodule
 
 // module clock_generator (
 //     output reg clk
