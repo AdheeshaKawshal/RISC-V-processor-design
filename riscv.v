@@ -223,7 +223,7 @@ module PCreg(
     reg [31:0] PC;
     
     initial begin 
-        PC=32'h00000000;
+        PC=32'h00000001;
         out=PC;
     end
     
@@ -274,7 +274,7 @@ module regfile (
     initial begin
         reg_file[0]=32'h00000003;
         reg_file[1]=32'h00000008;
-        reg_file[2]=32'h00000000;
+        reg_file[2]=32'h00000008;
         reg_file[5]=32'h00000009;
         reg_file[6]=32'h00000005;
     end
