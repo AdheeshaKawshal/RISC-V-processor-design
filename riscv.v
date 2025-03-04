@@ -22,7 +22,7 @@ module core(
     wire  [31:0] pcsh,SrcB;
     assign A=Aout;
     assign B=muxB;
-    assign C=WD3;
+    assign C=pcnex;
     assign ins=instr;
     assign func3=instr[14:12];
     assign write_data=Dwe;
@@ -217,7 +217,7 @@ module PCreg(
     reg [31:0] PC;
     
     initial begin 
-        PC=32'h00000005;
+        PC=32'h00000000;
         out=PC;
     end
     
@@ -368,7 +368,7 @@ module rv32i_controller (
             default: begin  // Default case (NOP)
                 regWrite = 0;
                 memWrite = 0;
-            
+                pcsrc=1'b0;
                 aluOp = 2'b00;
                 aluSrc = 0;
             end
