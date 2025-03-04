@@ -274,7 +274,7 @@ module regfile (
     initial begin
         reg_file[0]=32'h00000003;
         reg_file[1]=32'h00000008;
-        reg_file[2]=32'h00000000;
+        reg_file[2]=32'h00000008;
         reg_file[5]=32'h00000009;
         reg_file[6]=32'h00000005;
     end
@@ -364,9 +364,33 @@ module rv32i_controller (
                 regWrite = 0;
                 extO=3'b000;
                 memWrite = 0;
-                aluOp = 4'b0011;
                 aluSrc = 0;
-                pcsrc=(zero)? 2'b00:2'b01;
+                case(func3)
+                    3'b000:begin //BEQ
+                        aluOp = 4'b0011;
+                        pcsrc=(zero==0)? 2'b00:2'b01;
+                    end
+                    3'b001:begin //BNE
+                        aluOp = 4'b0011;
+                        pcsrc=(zero==0)? 2'b01:2'b00;
+                    end
+                    3'b100:begin //BLT
+                        aluOp = 4'b0011;
+                        pcsrc=(zero)? 2'b00:2'b01;
+                    end
+                    3'b101:begin //BGE
+                        aluOp = 4'b0011;
+                        pcsrc=(zero)? 2'b00:2'b01;
+                    end
+                    3'b110:begin //BLTU
+                        aluOp = 4'b0011;
+                        pcsrc=(zero)? 2'b00:2'b01;
+                    end
+                    3'b111:begin //BGEU
+                        aluOp = 4'b0011;
+                        pcsrc=(zero)? 2'b00:2'b01;
+                    end
+                endcase
             end 
             7'b1101111: begin  // JAL
                 regWrite = 1;  // Write PC+4 to rd

@@ -7,11 +7,21 @@ module tb_rv32i_processor;
     reg clk, rst_n,cl;
     reg [31:0] pc;
     wire  [31:0] Aout, pcreg, WD, mout, dt,A,B,C,ins;
+    wire [31:0] instr,read_data,memory_address,data_to_write,next_pc;
+    wire [2:0] func3;
 
     // Instantiate the processor
     core uut (
         .clk(clk),
         .rst(rst_n),
+        .instruction(instr), // you need to execute this instruction========
+	    .pc(pc), // the pc of the instruction that needs to execute==========
+        .read_data(read_data), // byte-aligned read back of the address memory_address
+	    .memory_address(memory_address), // memory address to read or write==========
+	    .data_to_write(data_to_write), // data to write for store instructions
+	    .func3(func3), // simply the func3 of the store instruction 
+	    .write_data(write_data), // assert high to write to memory
+	    .next_pc(next_pc),
         .A(A),
         .B(B),
         .C(C),
@@ -31,7 +41,7 @@ module tb_rv32i_processor;
     initial begin
         clk=0;
         rst_n = 1;
-        $dumpfile("xor_tb.vcd");
+        $dumpfile("RISCV_tb.vcd");
         $dumpvars(0,tb_rv32i_processor);
         // Initialize signals
 
@@ -42,7 +52,7 @@ module tb_rv32i_processor;
         // pc = 32'h00000001;
         // #10;
         // Wait for a few clock cycles to observe execution
-        #20;
+        #40;
 
         // End simulation
         $finish;
