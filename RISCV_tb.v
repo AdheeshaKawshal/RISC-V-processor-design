@@ -52,7 +52,7 @@ module tb_rv32i_processor;
         // pc = 32'h00000001;
         // #10;
         // Wait for a few clock cycles to observe execution
-        #100;
+        #40;
 
         // End simulation
         $finish;
