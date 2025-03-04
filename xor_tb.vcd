@@ -1,5 +1,5 @@
 $date
-	Tue Mar 04 11:24:37 2025
+	Tue Mar 04 13:01:07 2025
 $end
 $version
 	Icarus Verilog
@@ -157,79 +157,79 @@ $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
-b0 $"
-b0 #"
-bx ""
-b10 !"
-b110011 ~
+b1 $"
+bx #"
+b0 ""
+b11 !"
+b1100011 ~
 b0 }
 b0 |
 b0 {
-b111 z
-b110 y
-b101 x
-b101 w
-b1001 v
-b1110 u
-b0x0x t
-b101 s
-b0 r
-b1110 q
+b1010 z
+b10 y
+b1 x
+b0 w
+b1000 v
+bx u
+b0x0x0 t
+b0 s
+b1010 r
+bx q
 bx p
-b1110 o
-b11000101000001110110011 n
+b1000 o
+b1000001000010101100011 n
 b0 m
-bx l
-b0 k
-b11000101000001110110011 j
-bx i
+b1010 l
+b1010 k
+b1000001000010101100011 j
+b0 i
 bx h
-b101 g
+b0 g
 bx f
-b1110 e
-b1110 d
-b1001 c
-b10 b
-b101 a
-b0 `
-b0 _
+b1000 e
+b1000 d
+b1000 c
+b11 b
+b0 a
+b1010 `
+b1010 _
 b0 ^
 b1 ]
 b0 \
 b1 [
-b1 Z
+b1010 Z
 b1 Y
-b0 X
-b1110 W
-b0 V
+b1010 X
+b1000 W
+b1 V
 bz U
 b0 T
 b0 S
-b1 R
-b101 Q
-b101 P
-b0 O
-b1110 N
+b1010 R
+b0 Q
+b0 P
+b1010 O
+b1000 N
 0M
 bx L
-1K
-b101 J
-b1110 I
+0K
+b0 J
+bx I
 0H
-b10 G
-b0 F
+b11 G
+b1010 F
 b0 E
-bx D
-b1001 C
-b0x0x B
-b11000101000001110110011 A
-b101 @
-b0 ?
+b0 D
+b1000 C
+b0x0x0 B
+b1000001000010101100011 A
+b0 @
+b1 ?
 b0 >
 b1 =
-b1 <
-b0 ;
-0:
+b1010 <
+b1010 ;
+x:
 x9
 08
 07
@@ -237,289 +237,169 @@ z6
 bz 5
 bz 4
 b1 3
-b1110 2
+b1000 2
 bz 1
-b11000101000001110110011 0
-b101 /
+b1000001000010101100011 0
+b0 /
 bx .
 b0 -
-b101 ,
-b1110 +
+b1010 ,
+b1000 +
 1*
 0)
-b1110 (
-b101 '
+b1000 (
+b1010 '
 b0 &
-b11000101000001110110011 %
+b1000001000010101100011 %
 bx $
 bz #
 bz "
 bz !
 $end
 #2
-08
-b1 F
-b1 O
-b1 _
-b1 k
-b1 r
-b1 l
-bx I
-bx q
-bx u
-b1 J
-b1 Q
-b1 a
-b0xxxx B
-b0xxxx t
-b1 2
-b1 (
-b1 +
-b1 N
-b1 W
-b1 d
-b1 e
-b1 o
-1H
-b10 D
-b10 i
-b10 ""
-1:
-17
-1M
-0K
-b10 <
-b10 R
-b10 Z
-b1 z
-b1110 /
-b1110 '
-b1110 ,
-b1110 @
-b1110 P
-b1110 g
-b1110 s
-b1110 w
-b111 y
-b0 C
-b0 c
-b0 v
-b0 x
-b10 |
-b100011 ~
-b10 E
-b10 3
-b10 =
-b10 Y
-b10 ]
-b10 ;
-b10 X
-b10 `
-b11100000010000010100011 %
-b11100000010000010100011 0
-b11100000010000010100011 A
-b11100000010000010100011 j
-b11100000010000010100011 n
-b1 &
-b1 -
-b1 >
-b1 T
-b1 \
-b1 ^
-b1 m
-b1 S
-1)
-#4
-0)
-#6
-b11 <
-b11 R
-b11 Z
-b1110 I
-b1110 q
-b1110 u
-b11 3
-b11 =
-b11 Y
-b11 ]
-b11 ;
-b11 X
-b11 `
-b1110 $
-b1110 .
-b1110 L
-b1110 f
-b1110 p
-b10 &
-b10 -
-b10 >
-b10 T
-b10 \
-b10 ^
-b10 m
-b10 S
-1)
-#8
-0)
-#10
-b100 <
-b100 R
-b100 Z
-b100 3
-b100 =
-b100 Y
-b100 ]
-b100 ;
-b100 X
-b100 `
-b11 &
-b11 -
-b11 >
-b11 T
-b11 \
-b11 ^
-b11 m
-b11 S
-1)
-#12
-0)
-#14
-bx I
-bx q
-bx u
-bx $
-bx .
-bx L
-bx f
-bx p
 x8
 bx 2
-bx (
-bx +
 bx N
 bx W
 bx d
 bx e
 bx o
-0H
 b0 G
 b0 b
 b0 !"
-07
-0M
+b0 ?
+b0 V
+b0 $"
 bx J
 bx Q
 bx a
 bx B
 bx t
-b101 <
-b101 R
-b101 Z
-b100 z
+b1011 <
+b1011 R
+b1011 Z
+bx z
 bx /
-bx '
-bx ,
 bx @
 bx P
 bx g
 bx s
 bx w
-b100 y
+bx y
+bx (
+bx +
 bx C
 bx c
 bx v
-b10 x
-b0 |
-b110100 ~
-b0 E
-b100 F
-b100 O
-b100 _
-b100 k
-b100 r
-b100 l
-b101 3
-b101 =
-b101 Y
-b101 ]
-b1000 ;
-b1000 X
-b1000 `
-b10000010000001000110100 %
-b10000010000001000110100 0
-b10000010000001000110100 A
-b10000010000001000110100 j
-b10000010000001000110100 n
-b100 &
-b100 -
-b100 >
-b100 T
-b100 \
-b100 ^
-b100 m
-b100 S
+bx x
+bx }
+bx |
+bx ~
+bx E
+b0xxxxxxxxxxxxxxxxxxxxxxx0 '
+b0xxxxxxxxxxxxxxxxxxxxxxx0 ,
+b0xxxxxxxxxxxxxxxxxxxxxxx0 F
+b0xxxxxxxxxxxxxxxxxxxxxxx0 O
+b0xxxxxxxxxxxxxxxxxxxxxxx0 _
+b0xxxxxxxxxxxxxxxxxxxxxxx0 k
+b0xxxxxxxxxxxxxxxxxxxxxxx0 r
+bx0 l
+b1011 3
+b1011 =
+b1011 Y
+b1011 ]
+bx ;
+bx X
+bx `
+bx %
+bx 0
+bx A
+bx j
+bx n
+b1010 &
+b1010 -
+b1010 >
+b1010 T
+b1010 \
+b1010 ^
+b1010 m
+b1010 S
+1)
+#4
+0)
+#6
+b1100 <
+b1100 R
+b1100 Z
+b1100 3
+b1100 =
+b1100 Y
+b1100 ]
+b1011 &
+b1011 -
+b1011 >
+b1011 T
+b1011 \
+b1011 ^
+b1011 m
+b1011 S
+1)
+#8
+0)
+#10
+b1101 <
+b1101 R
+b1101 Z
+b1101 3
+b1101 =
+b1101 Y
+b1101 ]
+b1100 &
+b1100 -
+b1100 >
+b1100 T
+b1100 \
+b1100 ^
+b1100 m
+b1100 S
+1)
+#12
+0)
+#14
+b1110 <
+b1110 R
+b1110 Z
+b1110 3
+b1110 =
+b1110 Y
+b1110 ]
+b1101 &
+b1101 -
+b1101 >
+b1101 T
+b1101 \
+b1101 ^
+b1101 m
+b1101 S
 1)
 #16
 0)
 #18
-18
-b0 2
-b0 (
-b0 +
-b0 N
-b0 W
-b0 d
-b0 e
-b0 o
-b0 J
-b0 Q
-b0 a
-b0 B
-b0 t
-b110 <
-b110 R
-b110 Z
-b0 z
-b0 /
-b0 '
-b0 ,
-b0 @
-b0 P
-b0 g
-b0 s
-b0 w
-b0 y
-b0 C
-b0 c
-b0 v
-b0 x
-b1100101 ~
-b0 F
-b0 O
-b0 _
-b0 k
-b0 r
-b0 l
-b110 3
-b110 =
-b110 Y
-b110 ]
-b101 ;
-b101 X
-b101 `
-b1100101 %
-b1100101 0
-b1100101 A
-b1100101 j
-b1100101 n
-b101 &
-b101 -
-b101 >
-b101 T
-b101 \
-b101 ^
-b101 m
-b101 S
+b1111 <
+b1111 R
+b1111 Z
+b1111 3
+b1111 =
+b1111 Y
+b1111 ]
+b1110 &
+b1110 -
+b1110 >
+b1110 T
+b1110 \
+b1110 ^
+b1110 m
+b1110 S
 1)
 #20
 0)

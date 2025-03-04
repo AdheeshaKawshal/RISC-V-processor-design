@@ -21,8 +21,8 @@ module core(
     wire [1:0] pcSrc;
 	wire  [5:0]  pcaddr;
     wire  [31:0] pcsh,SrcB;
-    assign A=Aout;
-    assign B=muxB;
+    assign A=inA;
+    assign B=ext;
     assign C=pcnex;
     assign ins=instr;
     assign func3=instr[14:12];
@@ -179,6 +179,10 @@ module extender(
                 val={num[31:12]};
                 out = (val[19] == 1) ? { {12{1'b1}}, val } : { {12{1'b0}}, val };
             end
+            3'b000:begin  // immedeate type
+                val= ((num[31] << 12) | (num[7] << 11) | (num[30:25] << 5) | (num[11:8] << 1));//{num[31],val[7],val[30:25],val[11:8],1'b0};
+                out = (val[11] == 1) ? { {12{1'b1}}, val } : { {12{1'b0}}, val };
+            end
             default:begin
                 out=32'h00000000;
             end 
@@ -241,16 +245,16 @@ module instruction_memory (
 
     // Initialize the memory with instructions
     initial begin
-        RAM[0] = 32'h006283B3; // NOP (addi x0, x0, 0)
-        RAM[1] = 32'h007020A3; // ADDI x1, x0, 1  (x1 = 1)
+        RAM[0] = 32'h00208563; // NOP (addi x0, x0, 0)
+        RAM[1] = 32'h005000e7; // ADDI x1, x0, 1  (x1 = 1)
         RAM[2] = 32'h007020A3; // ADDI x2, x0, 2  (x2 = 2)
         RAM[3] = 32'h007020A3; // ADD  x3, x1, x2 (x3 = x1 + x2 = 3)
         RAM[4] = 32'h00410234; // ADD  x4, x2, x4 (x4 = x2 + x4)
         RAM[5] = 32'h00000065; // JUMP (Unconditional jump)
         RAM[6] = 32'h00410236; // ADD  x4, x2, x4 (x4 = x2 + x4)
         RAM[7] = 32'h00000067;
-        RAM[8] = 32'h00410238; // ADD  x4, x2, x4 (x4 = x2 + x4)
-        RAM[9] = 32'h00000069;// More instructions...
+        RAM[8] = 32'h002081b3; // ADD  x4, x2, x4 (x4 = x2 + x4)
+        RAM[9] = 32'h00208133;// More instructions...
     end
 	 always @(*) begin
 		rd = RAM[addr]; // Read instruction at address `a`
@@ -268,8 +272,9 @@ module regfile (
 );
     reg [31:0] reg_file [31:0]; // 32 registers
     initial begin
-        reg_file[0]=32'h00000000;
-        reg_file[1]=32'h00000005;
+        reg_file[0]=32'h00000003;
+        reg_file[1]=32'h00000008;
+        reg_file[2]=32'h00000000;
         reg_file[5]=32'h00000009;
         reg_file[6]=32'h00000005;
     end
@@ -341,7 +346,7 @@ module rv32i_controller (
             7'b0000011: begin  // Load (LW)
                 regWrite = 1;
                 memWrite = 0;
-                aluOp = 2'b00;
+                aluOp = 4'b0000;
                 aluSrc = 1;
                 extO=3'b010;
             end
@@ -357,10 +362,12 @@ module rv32i_controller (
             end
             7'b1100011: begin  // Branch (BEQ)
                 regWrite = 0;
+                extO=3'b000;
                 memWrite = 0;
-                aluOp = 2'b01;
+                aluOp = 4'b0011;
                 aluSrc = 0;
-            end
+                pcsrc=(zero)? 2'b00:2'b01;
+            end 
             7'b1101111: begin  // JAL
                 regWrite = 1;  // Write PC+4 to rd
                 memWrite = 0;
@@ -371,9 +378,11 @@ module rv32i_controller (
             7'b1100111: begin  // JALR
                 regWrite = 1;  // Write PC+4 to rd
                 memWrite = 0;
-               
-                aluOp = 2'b00;
-                aluSrc = 0;
+                resultsrc=1'b0;
+                extO=3'b011;
+                aluOp = 4'b0010;
+                aluSrc = 1;
+                pcsrc=2'b10;
             end
             7'b0110111: begin  // LUI
                 regWrite = 1;  // Write PC+4 to rd
