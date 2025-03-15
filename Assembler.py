@@ -105,11 +105,12 @@ def assemble_code(code):
 
 # Example Assembly Code
 assembly_code = """
-add x1, x2, x3
-addi x4, x5, 10
+addi zero, ra, 0
+addi x0, x2, 8
+addi x1, x1, 1
+bne x1, x2, 2
 lw x6, 20(x7)
 sw x8, 30(x9)
-beq x10, x11, 40
 lui x12, 100000
 jal x13, 2000
 """

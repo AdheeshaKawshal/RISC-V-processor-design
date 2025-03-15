@@ -326,17 +326,32 @@ module rv32i_controller (
                     10'b0000000000:begin
                        aluOp = 4'b0010; //ADD
                     end
-                    10'b0100000010:begin
-                       aluOp = 4'b0000; //SUB
+                    10'b0100000000:begin
+                       aluOp = 4'b0011; //SUB
                     end
-                    10'b0100000001:begin
-                       aluOp = 4'b0000; //SLL left shift on the value in register rs1 by the shift amount held in the lower 5 bits of register rs2.
+                    10'b0000000001:begin
+                       aluOp = 4'b0110; //SLL left shift on the value in register rs1 by the shift amount held in the lower 5 bits of register rs2.
                     end
-                    10'b0110000010:begin
-                       aluOp = 4'b0000; //Slt
+                    10'b0000000010:begin
+                       aluOp = 4'b1000; //Slt
                     end
-                    10'b0011100000:begin
-                       aluOp = 4'b0000; //ADD
+                    10'b0000000011:begin
+                       aluOp = 4'b0000; //SLTU ---
+                    end
+                    10'b0000000100:begin
+                       aluOp = 4'b0100; //XOR
+                    end
+                    10'b0000000101:begin
+                       aluOp = 4'b0111; //SRL
+                    end
+                    10'b0100000101:begin
+                       aluOp = 4'b0000; //SRA----
+                    end
+                    10'b0000000110:begin
+                       aluOp = 4'b0001; //OR
+                    end
+                    10'b0100000111:begin
+                       aluOp = 4'b0000; //AND
                     end
                 endcase  
             end
@@ -344,10 +359,39 @@ module rv32i_controller (
                 regWrite = 1'b1;
                 memWrite = 1'b0;
                 resultsrc=1'b0;
-                aluOp = 4'b0010;
                 aluSrc = 1'b1;
                 extO=3'b011;
                 pcsrc=2'b00;
+                case (func3)
+                    3'b000:begin
+                       aluOp = 4'b0010; //ADDI
+                    end
+                    10'b010:begin
+                       aluOp = 4'b1000; //SLTI
+                    end
+                    10'b11:begin
+                       aluOp = 4'b1000; //SLTIU---
+                    end
+                    10'b100:begin
+                       aluOp = 4'b0100; //XORI
+                    end
+                    10'b110:begin
+                       aluOp = 4'b0001; //ORI
+                    end
+                    10'b111:begin
+                       aluOp = 4'b0000; //ANDI
+                    end
+                    10'b001:begin
+                       aluOp = 4'b0110; //SLLI--
+                    end
+                    10'b101:begin
+                       aluOp = 4'b0111; //SRLI--
+                    end
+                    10'b000:begin
+                       aluOp = 4'b0001; //SRAI--
+                    end
+                endcase 
+
 
             end
             7'b0000011: begin  // Load (LW)
