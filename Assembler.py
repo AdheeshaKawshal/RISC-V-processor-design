@@ -100,7 +100,7 @@ def assemble_code(code):
         code=format(int(i,2),'X')
         s=''
         for j in range(8-len(code)):s+='0'
-        print(i, " ",s+code)
+        print(s+code)
     #return "\n".join()
 
 # Example Assembly Code

@@ -224,14 +224,11 @@ module PCreg(
     reg [31:0] PC;
     
     initial begin 
-        PC=32'h00000000;
-        out=PC;
-
+        PC=32'hffffffff;
+        out<=PC;
     end
-    
-    always @(posedge clk)begin 
-       // out <=PC;
-       out <=pcreg;
+    always @(posedge clk)begin
+        out <=pcreg;
     end
 
 endmodule
@@ -246,19 +243,14 @@ module instruction_memory (
 
     // Initialize the memory with instructions
     initial begin
-       RAM[0] = 32'b0000000000000000000000010010011;
-       //RAM[1] = 32'b0000000000000000000000010010011;
-       //RAM[1] = 32'b0000000000000000000000010010011;// NOP (addi x0, x0, 0)
-        //RAM[1] = 32'b0000000000000000000000010010011; // ADDI x2, x0, 2  (x2 = 2)
-        RAM[1] = 32'b0000000100000000000000100010011; // ADD  x3, x1, x2 (x3 = x1 + x2 = 3)
-       //RAM[4] = 32'h00410234; // ADD  x4, x2, x4 (x4 = x2 + x4)
-        RAM[2] = 32'b0000000000100001000000010010011;
-        RAM[3] = 32'b00000000000100010001000101100011; // ADDI x1, x0, 1  (x1 = 1)
-       // RA[3] = 32'b0000000000100001000000010010011; // JUMP (Unconditional jump)
-        //RAM[0] = 32'h00410236; // ADD  x4, x2, x4 (x4 = x2 + x4)
-       // RAM[0] = 32'h00200067; // 0110 0111
-        //RAM[0] = 32'h002081b3; // ADD  x4, x2, x4 (x4 = x2 + x4)
-        //RAM[5] = 32'h00208133;// More instructions...
+        RAM[0]=32'h00008013;
+        RAM[1]=32'h00800013;
+        RAM[2]=32'h00100013;
+        RAM[3]=32'h00001163;
+        RAM[4]=32'h01402003;
+        RAM[5]=32'h00002F23;
+        RAM[6]=32'h186A0037;
+        RAM[7]=32'h7D00006F;
     end
 	 always @(*) begin
 		rd = RAM[addr]; // Read instruction at address `a`
@@ -277,10 +269,10 @@ module regfile (
     reg [31:0] reg_file [31:0]; // 32 registers
     initial begin
         reg_file[0]=32'h00000000;
-        reg_file[1]=32'h00000002;
+        reg_file[1]=32'h00000000;
         reg_file[2]=32'h00000000;
-        reg_file[5]=32'h00000009;
-        reg_file[6]=32'h00000005;
+        reg_file[5]=32'h00000000;
+        reg_file[6]=32'h00000000;
     end
     assign data_out1 = reg_file[rs1];
     assign data_out2 = reg_file[rs2];
@@ -518,7 +510,9 @@ module mux32bit4_1(
         2'b11: begin
             out =in4;
         end
-
+        default:begin
+            out=32'h00000000;
+        end
         endcase
 
     end
