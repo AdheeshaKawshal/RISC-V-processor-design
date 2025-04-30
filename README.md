@@ -97,7 +97,3 @@ Feel free to modify `instruction_memory` to test custom instruction sequences.
 - Write testbenches for automated verification
 
 ---
-
-## 📜 License
-
-This project is open-source and free to use for academic or personal use.
