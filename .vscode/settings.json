@@ -1,0 +1,20 @@
+{
+    // Verilog configuration for IDE
+    "verilog.linting.linter": "iverilog",
+    "verilog.linting.iverilog.arguments": "-Wall -g2012",
+    "verilog.linting.iverilog.runAtFileLocation": true,
+    
+    // Tell the linter to include all module files when checking
+    "verilog.linting.iverilog.includePath": [
+        "${workspaceFolder}"
+    ],
+    
+    // Disable some warnings that might be annoying
+    "verilog.linting.iverilog.useWSL": false,
+    
+    // Formatting
+    "files.associations": {
+        "*.v": "verilog",
+        "*.vh": "verilog"
+    }
+}
